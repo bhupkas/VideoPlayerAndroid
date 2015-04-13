@@ -2,6 +2,7 @@ package com.example.videoplayer;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class listing extends ListActivity{
 
-	private String str;
-	String[] videoFileList = new String[1];
+	private String str1,str2;
+	String[] videoFileList = new String[2];
 /*	
 String[] videoFileList = {
 	Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/v1.mp4",
@@ -32,25 +35,6 @@ public class MyThumbnaildapter extends ArrayAdapter<String>{
   super(context, textViewResourceId, objects);
   // TODO Auto-generated constructor stub
   
-//Item Click Listener for the listview
-  OnItemClickListener itemClickListener = new OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View container, int position, long id) {
-          // Getting the Container Layout of the ListView
-          LinearLayout linearLayoutParent = (LinearLayout) container;
-
-          // Getting the inner Linear Layout
-          LinearLayout linearLayoutChild = (LinearLayout ) linearLayoutParent.getChildAt(1);
-
-          // Getting the Country TextView
-          TextView tvCountry = (TextView) linearLayoutChild.getChildAt(0);
-
-          Toast.makeText(getBaseContext(), tvCountry.getText().toString(), Toast.LENGTH_SHORT).show();
-      }
-  };
-
-  // Setting the item click listener for the listview
-  listView.setOnItemClickListener(itemClickListener);
   
  }
 
@@ -77,12 +61,30 @@ public class MyThumbnaildapter extends ArrayAdapter<String>{
 
 }
 
+
   /** Called when the activity is first created. */
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      str = getIntent().getExtras().getString("name");
-      videoFileList[0] = str;
+      str1 = getIntent().getExtras().getString("name1");
+      str2 = getIntent().getExtras().getString("name2");
+      videoFileList[0] = str1;
+      videoFileList[1] = str2;
       setListAdapter(new MyThumbnaildapter(listing.this, R.layout.row, videoFileList));
   }
+
+  @Override
+  protected void onListItemClick(ListView l, View v, int position, long id) {
+
+  	//get selected items
+	final Context context = this;    
+  	String selectedValue = (String) getListAdapter().getItem(position);
+  	Intent intent = new Intent(context, videoclass.class);
+  	intent.putExtra("name",selectedValue);
+    startActivity(intent);
+  	//Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+
+  }
+
+  
 }

@@ -16,7 +16,8 @@ import android.widget.Button;
 public class MainActivity extends ActionBarActivity {
 
 	private Button btnDisplay;
-	private String str;
+	private String str1;
+	private String str2;
     @Override  
     protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -31,10 +32,11 @@ public class MainActivity extends ActionBarActivity {
      
     		@Override
     		public void onClick(View v) {
-    				String str = Environment.getExternalStorageDirectory().getPath()+"/Download/v1.mp4";
     			    Intent intent = new Intent(context, listing.class);
-    			    str = Environment.getExternalStorageDirectory().getPath()+"/Download/v1.mp4"; 
-    			    intent.putExtra("name",str);
+    			    str1 = Environment.getExternalStorageDirectory().getPath()+"/Download/v1.mp4";
+    			    str2 = Environment.getExternalStorageDirectory().getPath()+"/Download/v2.mp4";
+    			    intent.putExtra("name1",str1);
+    			    intent.putExtra("name2",str2);
                     startActivity(intent);   
     		}
      
